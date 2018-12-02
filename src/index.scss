@@ -1,0 +1,60 @@
+// @import 'bulma-extensions/extensions';
+
+// 1. Import the initial variables
+@import "./node_modules/bulma/sass/utilities/initial-variables";
+@import "./node_modules/bulma/sass/utilities/functions";
+// 2. Setup your Custom Colors
+ $primary: hsl(183, 61%, 50%);
+// $primary-invert: findColorInvert($primary);
+$primary-light: hsl(184, 60%, 63%);
+$primary-light-invert: findColorInvert($primary-light);
+$primary-dark: hsl(184, 55%, 39%);
+$primary-dark-invert: findColorInvert($primary-dark);
+
+$text: hsl(184, 55%, 39%);
+
+$purple: hsl(275,87%,45%);
+$purple-invert: findColorInvert($purple);
+$purple-light: hsl(275, 88%, 65%);
+$purple-light-invert: findColorInvert($purple-light);
+$purple-dark: hsl(275,87%,25%);
+$purple-dark-invert: findColorInvert($purple-dark);
+
+$secondary: #2962ff; 
+$secondary-invert: findColorInvert($secondary);
+$secondary-light: #768fff; 
+$secondary-light-invert: findColorInvert($secondary-light);
+$secondary-dark: #0039cb; 
+$secondary-dark-invert: findColorInvert($secondary-dark);
+// 3. Add new color variables to the color map.
+@import "./node_modules/bulma/sass/utilities/derived-variables.sass";
+$addColors: (
+  "purple":($purple, $purple-invert),
+  "purple-light":($purple-light, $purple-invert),
+  "purple-dark":($purple-dark, $purple-invert),
+  "primary-light":($primary-light, $primary-light-invert),
+  "primary-dark":($primary-dark, $primary-dark-invert),
+  "secondary":($secondary, $secondary-invert),
+  "secondary-light":($secondary-light, $secondary-light-invert),
+  "secondary-dark":($secondary-dark, $secondary-dark-invert),
+  );
+$colors: map-merge($colors, $addColors);
+
+$navbar-item-color: $text;
+$title-color: $text;
+$subtitle-color: $text;
+@import './node_modules/bulma/bulma';
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

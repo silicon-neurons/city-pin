@@ -1,0 +1,20 @@
+.navbar-burger span.exit {
+    background-color: inherit;
+    top: 25%;
+    left: 25%;
+}
+.user-name {
+    margin-left: 10px;
+}
+.city-title {
+    font-size: 30px;
+}
+.buttons-container{
+    margin: 0px 20px 0px;
+}
+.buttons-container .button{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}

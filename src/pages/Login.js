@@ -13,7 +13,7 @@ class LoginPage extends Component {
                 </h1>
                 <div className="buttons-container">
                     <Link to="/home">
-                        <span className="button is-primary is-large is-fullwidth">
+                        <span className="button city-button is-primary">
                             <i className="material-icons">account_circle</i>
                             Sign in with Google
                         </span>

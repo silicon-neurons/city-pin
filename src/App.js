@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './App.css';
 
@@ -8,28 +8,25 @@ import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
 import PicturePage from './pages/Picture';
 import NavigationPage from './pages/Navigation';
-import BackgroundWaves from 'icons/BackgroundWaves';
-
+import NavBar from 'components/NavBar';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-            <div className="navbar-brand">
-              <span className="navbar-item">
-                <i className="material-icons">face</i> <span className="user-name"> Isaias Valle </span>
-              </span>
-            </div>
-            <div className="navbar-item item-end">
+          <NavBar
+            left={[
+              <i className="material-icons">face</i>,<span className="user-name"> Isaias Valle </span>
+            ]}
+            right={
               <Link to="/">
                 <span className="icon exit">
                   <i className="material-icons">exit_to_app</i>
-                </span>  
+                </span>
               </Link>
-            </div>
-          </nav>
+            }
+          />
           <section className="hero is-fullheight">
             {/* <!-- Hero content: will be in the middle --> */}
             <div className="hero-body">

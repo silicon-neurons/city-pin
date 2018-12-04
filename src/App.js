@@ -1,61 +1,93 @@
 import React, { Component } from 'react';
-import HomePage from './pages/Home';
-import PicturePage from './pages/Picture';
-import NavigationPage from './pages/Navigation';
-import BackgroundWaves from 'icons/BackgroundWaves';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+
 import './App.css';
 
+import HomePage from './pages/Home';
+import LoginPage from './pages/Login';
+import PicturePage from './pages/Picture';
+import NavigationPage from './pages/Navigation';
+import NavBar from 'components/NavBar';
+
+const fakeAuth = {
+  isAuthenticated: true
+}
+function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        fakeAuth.isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
+
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      isAuthenticated: fakeAuth.isAuthenticated
+    }
+  }
   render() {
+    const { isAuthenticated } = this.state;
     return (
       <Router>
         <div>
-          <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-            <div className="navbar-brand">
-              <span className="navbar-item">
-                <i className="material-icons">face</i> <span className="user-name"> Isaias Valle </span>
-              </span>
-
-              <span role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span className="icon exit">
-                  <i className="material-icons">exit_to_app</i>
-                </span>
-              </span>
-            </div>
-
-            <div id="navbarBasicExample" className="navbar-menu">
-              <div className="navbar-start">
-                <span className="navbar-item">
-                  Home
-                      </span>
-              </div>
-
-              <div className="navbar-end">
-                <div className="navbar-item">
-                  <div className="buttons">
-                    <span className="button is-primary">
-                      <strong>Sign up</strong>
-                    </span>
-                    <span className="button is-primary-light">
-                      Log in
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
+          <NavBar
+            left={
+              isAuthenticated ? 
+                [<i key="user-icon" className="material-icons">face</i>,<span key="name" className="user-name"> Isaias Valle </span> ] :
+                <i className="material-icons">face</i>
+            }
+            right={
+              isAuthenticated ?
+                <Link to="/">
+                  <span onClick={()=>{
+                    fakeAuth.isAuthenticated = false;
+                    this.setState({isAuthenticated: fakeAuth.isAuthenticated});
+                  }} className="icon exit">
+                    <i className="material-icons">exit_to_app</i>
+                  </span>
+                </Link> :
+                null
+            }
+          />
           <section className="hero is-fullheight">
-          {/* <!-- Hero content: will be in the middle --> */}
+            {/* <!-- Hero content: will be in the middle --> */}
             <div className="hero-body">
               <div className="container has-text-centered">
-                <Route exact path="/" component={HomePage}></Route>
-                <Route path="/picture" component={PicturePage}></Route>
-                <Route path="/navigate" component={NavigationPage}></Route>
+                <Route exact path="/(login)?"
+                  component={
+                    () => 
+                      <LoginPage 
+                        login={() => {
+                          fakeAuth.isAuthenticated = true;
+                          this.setState({isAuthenticated:fakeAuth.isAuthenticated});
+                        }}
+                      />
+                  }
+                >
+                </Route>
+                <PrivateRoute path="/home" component={HomePage}></PrivateRoute>
+                <PrivateRoute path="/picture" component={PicturePage}></PrivateRoute>
+                <PrivateRoute path="/navigate" component={NavigationPage}></PrivateRoute>
               </div>
             </div>
-          </section> 
-          
+          </section>
+
           {/* <div className="background-fixed">
             <BackgroundWaves/>
           </div> */}

@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class NavigationPage extends Component {
     render() {
         return (
-            <section class="section">
-                <div class="container">
-                    <h1 class="title">NavigationPage</h1>
-                    <h2 class="subtitle">
+            <section className="section">
+                <div className="container">
+                    <h1 className="title">NavigationPage</h1>
+                    <h2 className="subtitle">
                         A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
                     </h2>
                 </div>

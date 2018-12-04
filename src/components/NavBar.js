@@ -5,13 +5,9 @@ class NavBar extends Component {
 		return (
 			<nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
 				<div className="navbar-brand">
-					{
-						this.props.left.map((item)=>
-							<span className="navbar-item">
-								{item}
-							</span>
-						)
-					}
+					<span className="navbar-item">
+						{this.props.left}
+					</span>
 				</div>
 				<div className="navbar-item item-end">
 					{this.props.right}

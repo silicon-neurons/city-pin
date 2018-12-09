@@ -65,7 +65,7 @@ class App extends Component {
                 null
             }
           />
-          <section className="hero is-fullheight">
+          <section className="hero is-fullheight-with-navbar">
             {/* <!-- Hero content: will be in the middle --> */}
             <PrivateRoute path="/navigate" component={NavigationPage}></PrivateRoute>
             <div className="hero-body">
@@ -73,12 +73,12 @@ class App extends Component {
                 <Route exact path="/(login)?"
                   component={
                     () => 
-                      <LoginPage 
-                        login={() => {
-                          fakeAuth.isAuthenticated = true;
-                          this.setState({isAuthenticated:fakeAuth.isAuthenticated});
-                        }}
-                      />
+                    <LoginPage 
+                    login={() => {
+                      fakeAuth.isAuthenticated = true;
+                      this.setState({isAuthenticated:fakeAuth.isAuthenticated});
+                    }}
+                    />
                   }
                 >
                 </Route>

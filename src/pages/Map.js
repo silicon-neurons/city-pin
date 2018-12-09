@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { GoogleApiWrapper, Map} from 'google-maps-react';
 
 export class CurrentLocation extends React.Component {
     constructor(props) {
         super(props);
-    
+        window.CurrentLocation = this;
         const { lat, lng } = this.props.initialCenter;
         this.state = {
             currentLocation: {
@@ -15,12 +16,12 @@ export class CurrentLocation extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.google !== this.props.google) {
-            this.loadMap();
-        }
-        if (prevState.currentLocation !== this.state.currentLocation) {
-            this.recenterMap();
-        }
+        // if (prevProps.google !== this.props.google) {
+        //     this.loadMap();
+        // }
+        // if (prevState.currentLocation !== this.state.currentLocation) {
+        //     this.recenterMap();
+        // }
     }
 
     componentDidMount() {
@@ -37,7 +38,7 @@ export class CurrentLocation extends React.Component {
                 });
             }
         }
-        this.loadMap();
+        // this.loadMap();
     }  
 
     recenterMap() {
@@ -82,7 +83,6 @@ export class CurrentLocation extends React.Component {
         const { children } = this.props;
     
         if (!children) return;
-    
         return React.Children.map(children, c => {
             if (!c) return;
             return React.cloneElement(c, {
@@ -95,12 +95,8 @@ export class CurrentLocation extends React.Component {
 
     render() {
         return (
-            <div>
-                <div ref="map">
-                    Loading map...
-                </div>
-                {this.renderChildren()}
-            </div>
+            <Map google={this.props.google} containerStyle={{height:'intitial',width:'intitial'}} className="google-map">
+            </Map>
        );
     }
 }
@@ -114,6 +110,11 @@ CurrentLocation.defaultProps = {
     visible: true
 };
 
-export default CurrentLocation;
+export default GoogleApiWrapper({
+    apiKey: 'AIzaSyC_jS2mk0Irr2GhR_2_kA6bHma0CUd-OzE',
+    LoadingContainer: (props) => (
+        <div>Loading map...</div>
+      )
+})(CurrentLocation);
 
 

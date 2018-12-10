@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { GoogleApiWrapper, Map} from 'google-maps-react';
+import { GoogleApiWrapper, Map, Marker, InfoWindow} from 'google-maps-react';
 
 export class CurrentLocation extends React.Component {
     constructor(props) {
@@ -11,18 +11,18 @@ export class CurrentLocation extends React.Component {
             currentLocation: {
                 lat: lat,
                 lng: lng
-            }
+            },
+            selectedPlace: {},
+            activeMarker: null,
+            showInfoWindow: false,
         };
+
+        //bindings
+        this.onMarkerClick = this.onMarkerClick.bind(this);
+        this.onClose = this.onClose.bind(this);
+
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        // if (prevProps.google !== this.props.google) {
-        //     this.loadMap();
-        // }
-        // if (prevState.currentLocation !== this.state.currentLocation) {
-        //     this.recenterMap();
-        // }
-    }
 
     componentDidMount() {
         if (this.props.centerAroundCurrentLocation) {
@@ -38,9 +38,20 @@ export class CurrentLocation extends React.Component {
                 });
             }
         }
-        // this.loadMap();
     }  
-
+    onMarkerClick(props, marker) {
+        this.setState({
+            selectedPlace: props,
+            activeMarker: marker,
+            showInfoWindow: true
+        })
+    }
+    onClose() {
+        this.setState({
+            showInfoWindow: false,
+            activeMarker: null
+        });
+    }
     recenterMap() {
         const map = this.map;
         const current = this.state.currentLocation;
@@ -51,31 +62,6 @@ export class CurrentLocation extends React.Component {
         if (map) {
             let center = new maps.LatLng(current.lat, current.lng);
             map.panTo(center);
-        }
-    }
-
-    loadMap() {
-        if (this.props && this.props.google) {
-            // checks if google is available
-            const { google } = this.props;
-            const maps = google.maps; 
-            const mapRef = this.refs.map;
-    
-            // reference to the actual DOM element
-            const node = ReactDOM.findDOMNode(mapRef);
-    
-            let { zoom } = this.props;
-            const { lat, lng } = this.state.currentLocation;
-            const center = new maps.LatLng(lat, lng);
-            const mapConfig = Object.assign(
-                {},
-                {
-                    center: center,
-                    zoom: zoom
-                }
-            );
-            // maps.Map() is constructor that instantiates the map
-            this.map = new maps.Map(node, mapConfig);
         }
     }
 
@@ -94,8 +80,44 @@ export class CurrentLocation extends React.Component {
     }
 
     render() {
+        const initialCenter = {
+            lat: 14.048119,
+            lng: -87.174323
+        };
+        const markers = this.props.markers.map((marker, idx)=>{
+            const icon = {
+                url: marker.url,
+                scaledSize: new this.props.google.maps.Size(...marker.scaledSize)
+            }
+            return (
+                <Marker 
+                    key={idx}
+                    position={marker.position || this.state.currentLocation}
+                    icon={icon}
+                    name={marker.type}
+                    onClick={this.onMarkerClick}
+                ></Marker>
+            )}
+        ) 
         return (
-            <Map google={this.props.google} containerStyle={{height:'intitial',width:'intitial'}} className="google-map">
+            <Map
+                google={this.props.google}
+                containerStyle={{height:'initial',width:'initial'}}
+                className="google-map"
+                centerAroundCurrentLocation
+                initialCenter={initialCenter}
+                zoom={14}
+            >
+                {markers}
+                <InfoWindow
+                    marker={this.state.activeMarker}
+                    visible={this.state.showInfoWindow}
+                    onClose={this.onClose}
+                >
+                    <div>
+                        <h4>{this.state.selectedPlace.name}</h4>
+                    </div>
+                </InfoWindow>
             </Map>
        );
     }

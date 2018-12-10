@@ -25,38 +25,47 @@ class NavigationPage extends Component {
     };
 
     render() {
-        var offensiveIcon = {
-            url: "https://visualpharm.com/assets/302/Marker-595b40b85ba036ed117dd839.svg", // url
-            scaledSize: [90, 42], // scaled size
-        };
-        var nudgeIcon = {
-            url: "https://visualpharm.com/assets/825/Marker-595b40b75ba036ed117d9f54.svg", // url
-            scaledSize: [90, 42], // scaled size
-        };
-        var persuasiveIcon = {
-            url: "https://visualpharm.com/assets/104/Marker-595b40b65ba036ed117d2f70.svg", // url
-            scaledSize: [90, 42], // scaled size
-        };
-        var userIcon = {
-            url: "https://visualpharm.com/assets/415/User%20Location-595b40b75ba036ed117d6da8.svg", // url
-            scaledSize: [90, 42], // scaled size
-        };
+        const markers = [
+            {
+                type: 'offensive',
+                url: "https://visualpharm.com/assets/302/Marker-595b40b85ba036ed117dd839.svg", // url
+                scaledSize: [90, 42], // scaled size
+                position: {
+                    lat: 14.088314,
+                    lng: -87.183402
+                }
+            },{
+                type: 'persuasive',
+                url: "https://visualpharm.com/assets/104/Marker-595b40b65ba036ed117d2f70.svg", // url
+                scaledSize: [90, 42], // scaled size
+                position: {
+                    lat: 14.061615,
+                    lng: -87.218085
+                }
+            },{
+                type: 'user',
+                url: "https://visualpharm.com/assets/415/User%20Location-595b40b75ba036ed117d6da8.svg", // url
+                scaledSize: [90, 42], // scaled size
+            },{
+                type: 'nudge',
+                url: "https://visualpharm.com/assets/825/Marker-595b40b75ba036ed117d9f54.svg", // url
+                scaledSize: [90, 42], // scaled size
+                position: {
+                    lat: 14.105734, lng: -87.204687
+                }
+            }
+
+        ]
         return (
             <CityMap
+                markers={markers}
             >
+                
                 {/* <Marker position={{ lat: 14.088314, lng: -87.183402 }} onClick={this.onMarkerClick} icon={offensiveIcon} name={'Offensive'} />
                 <Marker position={{ lat: 14.105734, lng: -87.204687 }} onClick={this.onMarkerClick} icon={nudgeIcon} name={'Nudge'} />
                 <Marker position={{ lat: 14.061615, lng: -87.218085 }} onClick={this.onMarkerClick} icon={persuasiveIcon} name={'Persuasive'} />
                 <Marker onClick={this.onMarkerClick} icon={userIcon} name={'current location'} /> */}
-                {/* <InfoWindow
-                    marker={this.state.activeMarker}
-                    visible={this.state.showingInfoWindow}
-                    onClose={this.onClose}
-                >
-                    <div>
-                        <h4>{this.state.selectedPlace.name}</h4>
-                    </div>
-                </InfoWindow> */}
+                
             </CityMap>
         )
     }

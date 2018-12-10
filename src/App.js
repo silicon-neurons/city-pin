@@ -65,19 +65,20 @@ class App extends Component {
                 null
             }
           />
-          <section className="hero is-fullheight">
+          <section className="hero is-fullheight-with-navbar">
             {/* <!-- Hero content: will be in the middle --> */}
+            
             <div className="hero-body">
               <div className="container has-text-centered">
                 <Route exact path="/(login)?"
                   component={
                     () => 
-                      <LoginPage 
-                        login={() => {
-                          fakeAuth.isAuthenticated = true;
-                          this.setState({isAuthenticated:fakeAuth.isAuthenticated});
-                        }}
-                      />
+                    <LoginPage 
+                    login={() => {
+                      fakeAuth.isAuthenticated = true;
+                      this.setState({isAuthenticated:fakeAuth.isAuthenticated});
+                    }}
+                    />
                   }
                 >
                 </Route>

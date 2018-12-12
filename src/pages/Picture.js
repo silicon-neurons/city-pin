@@ -9,7 +9,9 @@ class PicturePage extends Component {
         this.imagen = React.createRef();
         this.len = React.createRef();
         this.descripcion = React.createRef();
-        this.loadPosts();
+        this.state = {
+            lens: []
+        };
     }
 
     submit = () => {
@@ -43,7 +45,7 @@ class PicturePage extends Component {
         });
     }
 
-    loadPosts = () => {
+    componentDidMount() {
         axios({
             method: 'get',
             /* url: 'http://127.0.0.1:8000/api/v1/posts/', /* LOCAL HOST*/
@@ -51,6 +53,20 @@ class PicturePage extends Component {
             config: { headers: {'Content-Type': 'multipart/form-data' }}
         }).then(function (response) {
             console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+        axios({
+            method: 'get',
+            /* url: 'http://127.0.0.1:8000/api/v1/lens/', /* LOCAL HOST*/
+            url: 'https://designrecognitionbackend.herokuapp.com/api/v1/lens/', /* POSTGRES ONLINE DB */
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+        }).then(({ data })=> {
+            console.log(data);
+            this.setState(
+                { lens: data }
+            );
         }).catch(function (error) {
             console.log(error);
         });
@@ -90,8 +106,11 @@ class PicturePage extends Component {
                             <div class="control">
                                 <div class="select is-primary">
                                 <select ref={this.len}>
-                                    <option>Select dropdown</option>
-                                    <option>With options</option>
+                                    {this.state.lens.map((len, i) =>
+                                        <option key={i}>
+                                            {len.title}
+                                        </option>
+                                    )}
                                 </select>
                                 </div>
                             </div>

@@ -28,7 +28,7 @@ class PicturePage extends Component {
         /* solo se inserta en db cuando el atributo lens de abajo se le pasa el title de un lens ya existente en la db*/
         post.set("lens", "Lens1");
         post.set("geo_latitude", 14.1059453);
-        post.set("geo_longitude", 87.204887);
+        post.set("geo_longitude", -87.204887);
 
         axios({
             method: 'post',

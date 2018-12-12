@@ -23,15 +23,17 @@ class PicturePage extends Component {
         var post = new FormData();
         post.append("image", imagen);
         post.set("desc", descripcion);
-        post.set("design", 'Persuasive');
+        post.set("design", 'P');
         post.set("user", null);
         /* solo se inserta en db cuando el atributo lens de abajo se le pasa el title de un lens ya existente en la db*/
         post.set("lens", "Lens1");
+        post.set("geo_latitude", 14.1059453);
+        post.set("geo_longitude", -87.2049887);
 
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/post/', /* LOCAL HOST*/
-            /*url: 'https://designrecognitionbackend.herokuapp.com/api/v1/post/', */
+            /*url: 'http://127.0.0.1:8000/api/v1/post/', /* LOCAL HOST*/
+            url: 'https://designrecognitionbackend.herokuapp.com/api/v1/post/', /* POSTGRES ONLINE DB */
             data: post,
             config: { headers: {'Content-Type': 'multipart/form-data' }}
         }).then(function (response) {
@@ -44,8 +46,8 @@ class PicturePage extends Component {
     loadPosts = () => {
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:8000/api/v1/posts/', /* LOCAL HOST*/
-            /*url: 'https://designrecognitionbackend.herokuapp.com/api/v1/posts/',*/
+            /* url: 'http://127.0.0.1:8000/api/v1/posts/', /* LOCAL HOST*/
+            url: 'https://designrecognitionbackend.herokuapp.com/api/v1/posts/', /* POSTGRES ONLINE DB */
             config: { headers: {'Content-Type': 'multipart/form-data' }}
         }).then(function (response) {
             console.log(response);

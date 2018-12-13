@@ -69,6 +69,7 @@ class App extends Component {
             {/* <!-- Hero content: will be in the middle --> */}
             
             <div className="hero-body">
+              <PrivateRoute path="/navigate" component={NavigationPage}></PrivateRoute>
               <div className="container has-text-centered">
                 <Route exact path="/(login)?"
                   component={
@@ -83,8 +84,7 @@ class App extends Component {
                 >
                 </Route>
                 <PrivateRoute path="/home" component={HomePage}></PrivateRoute>
-                <PrivateRoute path="/picture" component={PicturePage}></PrivateRoute>
-                <PrivateRoute path="/navigate" component={NavigationPage}></PrivateRoute>
+                <PrivateRoute path="/picture/:id" component={PicturePage}></PrivateRoute>
               </div>
             </div>
           </section>

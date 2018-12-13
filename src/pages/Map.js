@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { GoogleApiWrapper, Map, Marker, InfoWindow} from 'google-maps-react';
 
 export class CurrentLocation extends React.Component {
@@ -44,7 +43,8 @@ export class CurrentLocation extends React.Component {
             selectedPlace: props,
             activeMarker: marker,
             showInfoWindow: true
-        })
+        });
+        this.props.onMarkerClick(props, marker);
     }
     onClose() {
         this.setState({
@@ -96,6 +96,7 @@ export class CurrentLocation extends React.Component {
                     icon={icon}
                     name={marker.type}
                     onClick={this.onMarkerClick}
+                    id={marker.id}
                 ></Marker>
             )}
         ) 

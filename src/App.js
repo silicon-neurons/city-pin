@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 
 import './App.css';
 
-import HomePage from './pages/Home';
-import LoginPage from './pages/Login';
-import PicturePage from './pages/Picture';
-import NavigationPage from './pages/Navigation';
+import HomePage from './pages/Home/Home';
+import LoginPage from './pages/Login/Login';
+import NewPicturePage from './pages/Picture/NewPicture';
+import ViewPicturePage from './pages/Picture/ViewPicture';
+import NavigationPage from './pages/Navigation/Navigation';
 import NavBar from 'components/NavBar';
 
 const fakeAuth = {
@@ -38,7 +39,20 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      isAuthenticated: fakeAuth.isAuthenticated
+      isAuthenticated: fakeAuth.isAuthenticated,
+      latitude: 0,
+      longitude: 0
+    }
+  }
+  componentDidMount(){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(position=>{
+        console.log(position);
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        })
+      });
     }
   }
   render() {
@@ -84,14 +98,17 @@ class App extends Component {
                 >
                 </Route>
                 <PrivateRoute path="/home" component={HomePage}></PrivateRoute>
-                <PrivateRoute path="/picture/:id" component={PicturePage}></PrivateRoute>
+                <PrivateRoute path="/picture" component={()=>
+                  <NewPicturePage
+                    latitude={this.state.latitude}
+                    longitude={this.state.longitude}
+                  />}
+                >
+                </PrivateRoute>
+                <PrivateRoute path="/picture/:id" component={ViewPicturePage}></PrivateRoute>
               </div>
             </div>
           </section>
-
-          {/* <div className="background-fixed">
-            <BackgroundWaves/>
-          </div> */}
         </div>
       </Router>
     )

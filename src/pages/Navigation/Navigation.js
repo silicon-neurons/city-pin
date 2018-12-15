@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import CityMap from './Map';
-import { browser } from 'react-router-dom';
+import CityMap from 'components/Map';
 class NavigationPage extends Component {
     state = {
         showingInfoWindow: false,  //Hides or the shows the infoWindow
@@ -13,10 +12,9 @@ class NavigationPage extends Component {
         axios({
             method: 'get',
             /* url: 'http://127.0.0.1:8000/api/v1/lens/', /* LOCAL HOST*/
-            url: 'https://designrecognitionbackend.herokuapp.com/api/v1/posts/?format=json', /* POSTGRES ONLINE DB */
+            url: 'https://design-dev.herokuapp.com/api/v1/posts/?format=json', /* POSTGRES ONLINE DB */
 
         }).then(({ data: posts })=> {
-            console.log(posts);
             const typeMap = {
                 'P': {
                   type:'Persuasive',
@@ -57,10 +55,9 @@ class NavigationPage extends Component {
         });
         
     }
-    onMarkerClick = (props, marker, e) => {
-        console.log(props.id);
+    onMarkerClick = (pictureId) => {
         this.props.history.push({
-            pathname: '/picture/1'
+            pathname: `/picture/${pictureId}`
         })
     }
     render() {

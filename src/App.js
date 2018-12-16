@@ -47,7 +47,6 @@ class App extends Component {
   componentDidMount(){
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(position=>{
-        console.log(position);
         this.setState({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude

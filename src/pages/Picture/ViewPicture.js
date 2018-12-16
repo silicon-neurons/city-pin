@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import axios from 'axios';
+import request from 'services/request';
 
 class PicturePage extends Component {
 	constructor(props) {
@@ -18,9 +18,6 @@ class PicturePage extends Component {
 		var imagen = this.imagen.current.files[0];
 		var len = this.len.current.value;
 		var descripcion = this.descripcion.current.value;
-		console.log(imagen);
-		console.log(len);
-		console.log(descripcion);
 
 		var post = new FormData();
 		post.append("image", imagen);
@@ -32,10 +29,10 @@ class PicturePage extends Component {
 		post.set("geo_latitude", 14.1059453);
 		post.set("geo_longitude", -87.2049887);
 
-		axios({
+		request({
 			method: 'post',
 			/*url: 'http://127.0.0.1:8000/api/v1/post/', /* LOCAL HOST*/
-			url: 'https://designrecognitionbackend.herokuapp.com/api/v1/post/', /* POSTGRES ONLINE DB */
+			url: 'api/v1/post/', /* POSTGRES ONLINE DB */
 			data: post,
 			config: { headers: {'Content-Type': 'multipart/form-data' }}
 		}).then(function (response) {
@@ -46,10 +43,10 @@ class PicturePage extends Component {
 	}
 
 	componentDidMount() {
-		axios({
+		request({
 			method: 'get',
 			/* url: 'http://127.0.0.1:8000/api/v1/posts/', /* LOCAL HOST*/
-			url: 'https://designrecognitionbackend.herokuapp.com/api/v1/posts/', /* POSTGRES ONLINE DB */
+			url: 'api/v1/posts/', /* POSTGRES ONLINE DB */
 			config: { headers: {'Content-Type': 'multipart/form-data' }}
 		}).then(function (response) {
 			console.log(response);
@@ -57,10 +54,10 @@ class PicturePage extends Component {
 			console.log(error);
 		});
 
-		axios({
+		request({
 			method: 'get',
 			/* url: 'http://127.0.0.1:8000/api/v1/lens/', /* LOCAL HOST*/
-			url: 'https://designrecognitionbackend.herokuapp.com/api/v1/lens/', /* POSTGRES ONLINE DB */
+			url: 'api/v1/lens/', /* POSTGRES ONLINE DB */
 			config: { headers: {'Content-Type': 'multipart/form-data' }}
 		}).then(({ data })=> {
 			console.log(data);

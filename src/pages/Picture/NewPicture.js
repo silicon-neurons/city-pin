@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
-import axios from 'axios';
+import request from 'services/request';
 
 class PicturePage extends Component {
 	constructor(props) {
@@ -36,9 +35,9 @@ class PicturePage extends Component {
 		post.set("geo_latitude", this.props.latitude);
 		post.set("geo_longitude", this.props.longitude);
 
-		axios({
+		request({
 			method: 'post',
-			url: 'https://design-dev.herokuapp.com/api/v1/post/', /* POSTGRES ONLINE DB */
+			url: 'api/v1/post/', /* POSTGRES ONLINE DB */
 			data: post,
 			config: { headers: {'Content-Type': 'multipart/form-data' }}
 		}).then(function (response) {
@@ -49,9 +48,9 @@ class PicturePage extends Component {
 	}
 
 	componentDidMount() {
-		axios({
+		request({
 			method: 'get',
-			url: 'https://design-dev.herokuapp.com/api/v1/posts/', /* POSTGRES ONLINE DB */
+			url: 'api/v1/posts/', /* POSTGRES ONLINE DB */
 			config: { headers: {'Content-Type': 'multipart/form-data' }}
 		}).then(function (response) {
 			console.log(response);
@@ -59,12 +58,11 @@ class PicturePage extends Component {
 			console.log(error);
 		});
 
-		axios({
+		request({
 			method: 'get',
-			url: 'https://design-dev.herokuapp.com/api/v1/lens/', /* POSTGRES ONLINE DB */
+			url: 'api/v1/lens/', /* POSTGRES ONLINE DB */
 			config: { headers: {'Content-Type': 'multipart/form-data' }}
 		}).then(({ data })=> {
-			console.log(data);
 			this.setState(prevState=>({
 				data:{
 					...prevState.data,
@@ -87,7 +85,19 @@ class PicturePage extends Component {
 	handleImage = (event) => {
 		const { files } = event.target;
 		const image = files[0];
-		console.log(image);
+		const types = ['image/png', 'image/jpeg', 'image/gif'];
+		if(!types.includes(image.type)){
+			this.setState((prevState)=>{
+				URL.revokeObjectURL(prevState.form.image);
+				return {
+					form:{
+						...prevState.form,
+						image:'https://bulma.io/images/placeholders/256x256.png'
+					}
+				}
+			});
+			return;
+		}
 		this.setState((prevState)=>{
 			URL.revokeObjectURL(prevState.form.image);
 			return {
@@ -157,6 +167,10 @@ class PicturePage extends Component {
 								></textarea>
 							</div>
 						</div>
+						<pre>
+							latitude: {this.props.latitude}
+							langitude: {this.props.longitude}
+						</pre>
 					</div>
 				</div>
 			</section>

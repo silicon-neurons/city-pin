@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import request from 'services/request';
 import CityMap from 'components/Map';
 class NavigationPage extends Component {
     state = {
@@ -9,10 +9,9 @@ class NavigationPage extends Component {
         markers: []
     };
     componentDidMount(){
-        axios({
+        request({
             method: 'get',
-            /* url: 'http://127.0.0.1:8000/api/v1/lens/', /* LOCAL HOST*/
-            url: 'https://design-dev.herokuapp.com/api/v1/posts/?format=json', /* POSTGRES ONLINE DB */
+            url: 'api/v1/posts/?format=json', /* POSTGRES ONLINE DB */
 
         }).then(({ data: posts })=> {
             const typeMap = {

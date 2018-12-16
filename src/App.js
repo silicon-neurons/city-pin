@@ -85,8 +85,7 @@ class App extends Component {
               <PrivateRoute path="/navigate" component={NavigationPage}></PrivateRoute>
               <div className="container has-text-centered">
                 <Route exact path="/(login)?"
-                  component={
-                    () => 
+                  component={() => 
                     <LoginPage 
                     login={() => {
                       fakeAuth.isAuthenticated = true;

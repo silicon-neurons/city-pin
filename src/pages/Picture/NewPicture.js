@@ -5,9 +5,6 @@ import request from 'services/request';
 class PicturePage extends Component {
 	constructor(props) {
 		super(props);
-		this.imagen = React.createRef();
-		this.len = React.createRef();
-		this.descripcion = React.createRef();
 		this.state = {
 			form:{
 				description: '',
@@ -23,13 +20,13 @@ class PicturePage extends Component {
 	}
 
 	submit = () => {
-		const {description, design, image} = this.state.form;
+		const {description, design, image, user} = this.state.form;
 
 		var post = new FormData();
 		post.append("image", image);
 		post.set("desc", description);
 		post.set("design", design);
-		post.set("user", null);
+		post.set("user", user);
 		/* solo se inserta en db cuando el atributo lens de abajo se le pasa el title de un lens ya existente en la db*/
 		post.set("lens", "Lens1");
 		post.set("geo_latitude", this.props.latitude);
@@ -115,7 +112,7 @@ class PicturePage extends Component {
 		input.click();
 	}
 	render() {
-		const { design } = this.state.form;
+		const { design, description } = this.state.form;
 		return (
 			<section className="section">
 				
@@ -162,7 +159,7 @@ class PicturePage extends Component {
 									className="textarea is-primary"
 									placeholder="Primary textarea"
 									name="description"
-									value={this.state.form.description}
+									value={description}
 									onChange={this.handleChange}
 								></textarea>
 							</div>

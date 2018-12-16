@@ -12,7 +12,6 @@ class NavigationPage extends Component {
         request({
             method: 'get',
             url: 'api/v1/posts/?format=json', /* POSTGRES ONLINE DB */
-
         }).then(({ data: posts })=> {
             const typeMap = {
                 'P': {
@@ -21,7 +20,7 @@ class NavigationPage extends Component {
                   scaledSize: [90, 42]
                 },
                 'O': {
-                  type: 'Offensive',
+                  type: 'Offensive', //Hostile, Unpleasant
                   url: 'https://visualpharm.com/assets/104/Marker-595b40b65ba036ed117d2f70.svg',
                   scaledSize: [90, 42]
                 },
@@ -52,7 +51,6 @@ class NavigationPage extends Component {
         }).catch(function (error) {
             console.log(error);
         });
-        
     }
     onMarkerClick = (pictureId) => {
         this.props.history.push({

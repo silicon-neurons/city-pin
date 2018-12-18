@@ -52,9 +52,9 @@ class NavigationPage extends Component {
             console.log(error);
         });
     }
-    onMarkerClick = (pictureId) => {
+    onMarkerClick = (marker) => {
         this.props.history.push({
-            pathname: `/picture/${pictureId}`
+            pathname: `/picture/${marker.id}`
         })
     }
     render() {

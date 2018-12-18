@@ -19,8 +19,8 @@ class NavigationPage extends Component {
                   url: 'https://visualpharm.com/assets/302/Marker-595b40b85ba036ed117dd839.svg',
                   scaledSize: [90, 42]
                 },
-                'O': {
-                  type: 'Offensive', //Hostile, Unpleasant
+                'H': {
+                  type: 'Hostile', //Hostile, Unpleasant
                   url: 'https://visualpharm.com/assets/104/Marker-595b40b65ba036ed117d2f70.svg',
                   scaledSize: [90, 42]
                 },

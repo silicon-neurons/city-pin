@@ -59,7 +59,8 @@ class NavigationPage extends Component {
     }
     onMarkerClick = (marker) => {
         this.props.history.push({
-            pathname: `/picture/${marker.id}`
+            pathname: `/viewPicture/${marker.id}`,
+            marker: marker
         })
     }
     render() {

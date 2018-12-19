@@ -105,7 +105,7 @@ class App extends Component {
                     />}
                   >
                   </PrivateRoute>
-                  <PrivateRoute path="/picture/:id" component={ViewPicturePage}></PrivateRoute>
+                  <PrivateRoute path="/viewPicture/:id" component={ViewPicturePage}></PrivateRoute>
                 </Switch>
                 </div>
             </div>

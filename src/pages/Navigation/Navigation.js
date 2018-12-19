@@ -28,6 +28,11 @@ class NavigationPage extends Component {
                   type: 'Nudge',
                   url: 'https://visualpharm.com/assets/825/Marker-595b40b75ba036ed117d9f54.svg',
                   scaledSize: [90, 42]
+                },
+                '': {
+                  type: '',
+                  url: 'https://visualpharm.com/assets/562/Marker-595b40b85ba036ed117dd838.svg',
+                  scaledSize: [90,42]
                 }
               };
             const user =  {

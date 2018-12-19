@@ -21,7 +21,7 @@ class PicturePage extends Component {
 
 	submit = () => {
 		const {description, design, image, user} = this.state.form;
-
+		
 		var post = new FormData();
 		post.append("image", image);
 		post.set("desc", description);
@@ -42,6 +42,15 @@ class PicturePage extends Component {
 		}).catch(function (error) {
 			console.log(error);
 		});
+
+		request({
+			method: 'post',
+			url: 'https://young-ridge-10286.herokuapp.com/predict', /* POSTGRES ONLINE DB */
+			data: JSON.stringify({
+				image: this.state.form.rawImage,
+
+			})
+		})
 	}
 
 	componentDidMount() {
@@ -84,6 +93,7 @@ class PicturePage extends Component {
 		const image = files[0];
 		const types = ['image/png', 'image/jpeg', 'image/gif'];
 		if(!types.includes(image.type)){
+			
 			this.setState((prevState)=>{
 				URL.revokeObjectURL(prevState.form.image);
 				return {
@@ -95,12 +105,29 @@ class PicturePage extends Component {
 			});
 			return;
 		}
+		let reader = new FileReader();
+		reader.onload = function(e){
+			let dataURL = reader.result;
+			let path = files.type;
+			let base64Image = dataURL.replace("data:"+path+";base64,","");
+			request({
+				method: 'post',
+				url: 'https://young-ridge-10286.herokuapp.com/predict',
+				data: JSON.stringify({
+					data: base64Image
+				})
+			}).then((res)=>{
+				console.log(res);
+			})
+		}
+		reader.readAsDataURL(image);
 		this.setState((prevState)=>{
 			URL.revokeObjectURL(prevState.form.image);
 			return {
 				form:{
 					...prevState.form,
-					image: URL.createObjectURL(image)
+					image: URL.createObjectURL(image),
+					rawImage: image
 				}
 			}
 		});

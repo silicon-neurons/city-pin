@@ -20,10 +20,10 @@ class PicturePage extends Component {
 	}
 
 	submit = () => {
-		const {description, design, image, user} = this.state.form;
+		const {description, design, rawImage, user} = this.state.form;
 		
 		var post = new FormData();
-		post.append("image", image);
+		post.append("image", rawImage);
 		post.set("desc", description);
 		post.set("design", design);
 		post.set("user", user);

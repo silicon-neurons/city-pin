@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import request from 'services/request';
+import './Picture.css'
 
 class PicturePage extends Component {
 	constructor(props) {
@@ -184,7 +185,7 @@ class PicturePage extends Component {
 						<hr></hr>
 						<div className="top-container" >
 							<Link to="/navigate">
-								<span className="button city-button button-lighty is-large is-fullwidth" onClick={this.submit}>
+								<span className="button city-button button-dark is-large is-fullwidth" onClick={this.submit}>
 									Submit
 								</span>
 							</Link>

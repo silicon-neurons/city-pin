@@ -42,15 +42,6 @@ class PicturePage extends Component {
 		}).catch(function (error) {
 			console.log(error);
 		});
-
-		request({
-			method: 'post',
-			url: 'https://young-ridge-10286.herokuapp.com/predict', /* POSTGRES ONLINE DB */
-			data: JSON.stringify({
-				image: this.state.form.rawImage,
-
-			})
-		})
 	}
 
 	componentDidMount() {
@@ -145,13 +136,8 @@ class PicturePage extends Component {
 				
 				<div className="container">
 					<div className="pin-content">
-						<div className="top-container" >
-							<Link to="/navigate">
-								<span className="button city-button button-lighty is-large is-fullwidth" onClick={this.submit}>
-									Submit
-								</span>
-							</Link>
-						</div>
+						<h1 class="title">Ingresar imagen</h1>
+						<h2 class="subtitle">Escoge la imagen que deseas describir</h2>
 						<hr></hr>
 						<figure className="image-display" onClick={this.chooseFile}>
 							<img className="pinned-image" height="500px" width="500px" alt="pin" src={this.state.form.image || 'https://bulma.io/images/placeholders/256x256.png'}></img>
@@ -195,6 +181,14 @@ class PicturePage extends Component {
 							latitude: {this.props.latitude}
 							longitude: {this.props.longitude}
 						</pre>
+						<hr></hr>
+						<div className="top-container" >
+							<Link to="/navigate">
+								<span className="button city-button button-lighty is-large is-fullwidth" onClick={this.submit}>
+									Submit
+								</span>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</section>

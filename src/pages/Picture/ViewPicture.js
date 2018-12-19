@@ -11,12 +11,9 @@ class viewPicturePage extends Component {
 		this.descripcion = React.createRef();
 		this.state = {
 			lens: [],
-			image: ''
+			image: '',
+			data: {}
 		};
-	}
-
-	predict = () => {
-
 	}
 
 	getImage = () => {
@@ -28,7 +25,7 @@ class viewPicturePage extends Component {
 
 	componentDidMount() {
 		const id = this.props.match.params.id;
-		console.log(this.props.match);
+
 		request({
 			method: 'get',
 			/* url: 'http://127.0.0.1:8000/api/v1/posts/', /* LOCAL HOST*/
@@ -37,7 +34,8 @@ class viewPicturePage extends Component {
 		}).then( (response)  => {
 			console.log(response);
 			this.setState({
-				image: response.data.image
+				image: response.data.image,
+				data: response.data
 			})
 		}).catch(function (error) {
 			console.log(error);
@@ -64,11 +62,6 @@ class viewPicturePage extends Component {
 				
 				<div className="container">
 					<div className="pin-content">
-						<div className="top-container" >
-							<span className="button city-button button-lighty is-large is-fullwidth" onClick={this.predict}>
-								Predict
-							</span>
-						</div>
 						<hr></hr>
 						<figure className="image-display">
 							<img className="pinned-image" height="500px" width="500px" alt="pin" src={this.getImage()}></img>
@@ -86,21 +79,16 @@ class viewPicturePage extends Component {
 								</select>
 								</div>
 							</div>
+							<hr></hr>
 							<div className="control">
 								<div className="select is-primary">
-								<select ref={this.len}>
-									{this.state.lens.map((len, i) =>
-										<option key={i}>
-											{len.title}
-										</option>
-									)}
-								</select>
+									<span>
+										<p>Design: {this.state.data.design}</p>
+										<p>Description: {this.state.data.desc}</p>
+										<p>latitude: {this.state.data.geo_latitude}</p>
+										<p>longitude: {this.state.data.geo_longitude}</p>
+									</span>
 								</div>
-							</div>
-						</div>
-						<div className="field">
-							<div className="control">
-								<textarea className="textarea is-primary" placeholder="Primary textarea" ref={this.descripcion}></textarea>
 							</div>
 						</div>
 					</div>

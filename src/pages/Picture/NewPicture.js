@@ -166,7 +166,7 @@ class PicturePage extends Component {
 						</div>
 						<pre>
 							latitude: {this.props.latitude}
-							langitude: {this.props.longitude}
+							longitude: {this.props.longitude}
 						</pre>
 					</div>
 				</div>

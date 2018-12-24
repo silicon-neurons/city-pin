@@ -39,12 +39,15 @@ export class CurrentLocation extends React.Component {
         }
     }  
     onMarkerClick(props, marker) {
+        const sameMaker = this.state.selectedPlace.id === props.id;
+        if(this.props.onMarkerClick && this.state.showInfoWindow && sameMaker){
+            this.props.onMarkerClick(props, marker);
+        }
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
             showInfoWindow: true
         });
-        this.props.onMarkerClick(props, marker);
     }
     onClose() {
         this.setState({
@@ -114,6 +117,7 @@ export class CurrentLocation extends React.Component {
                     marker={this.state.activeMarker}
                     visible={this.state.showInfoWindow}
                     onClose={this.onClose}
+                    onClick={this.onMarkerClick}
                 >
                     <div>
                         <h4>{this.state.selectedPlace.name}</h4>

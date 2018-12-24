@@ -55,7 +55,13 @@ class viewPicturePage extends Component {
 			console.log(error);
 		});
 	}
-
+	getDesignName(design){
+		return {
+			'N': 'Nudge',
+			'H': 'Hostile',
+			'P': 'Persuasive'
+		}[design] || `${design} - Unknown`;
+	}
 	render() {
 		return (
 			<section className="section">
@@ -83,7 +89,7 @@ class viewPicturePage extends Component {
 							<div className="control">
 								<div className="select is-primary">
 									<span>
-										<p>Design: {this.state.data.design}</p>
+										<p>Design: {this.getDesignName(this.state.data.design)}</p>
 										<p>Description: {this.state.data.desc}</p>
 										<p>latitude: {this.state.data.geo_latitude}</p>
 										<p>longitude: {this.state.data.geo_longitude}</p>

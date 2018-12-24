@@ -1,5 +1,14 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Requirements
+- Install [Node](https://nodejs.org/en/)
+- Install NPM (comes with node)
+- Learn about [HTML](https://www.w3schools.com/html/default.asp)/[CSS](https://www.w3schools.com/html/html_css.asp)/[Javascript](https://www.w3schools.com/html/html_scripts.asp)
+- Learn about [ReactJS](https://reactjs.org/)
+- Learn about [bulma css framework](https://bulma.io/)
+- Learn about [Sass](https://sass-lang.com/) (Css pre-processing)
+
+
 ## Available Scripts
 
 In the project directory, you can run:
